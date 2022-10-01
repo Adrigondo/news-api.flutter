@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'package:my_first_flutter_app/home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -45,7 +46,7 @@ class _RootPageState extends State<RootPage> {
         appBar: AppBar(
           title: const Text("Informa2"),
         ),
-        body: Container(),
+        body: const HomePage(),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             debugPrint("Floating Action Button");
