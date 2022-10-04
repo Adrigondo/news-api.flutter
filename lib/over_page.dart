@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_first_flutter_app/main.dart';
 
 class OverPage extends StatefulWidget {
   const OverPage({super.key});
@@ -50,38 +51,75 @@ class _OverPageState extends State<OverPage> {
           ),
           OutlinedButton(
             style: ButtonStyle(
-              /* backgroundColor:
+              backgroundColor:
                   MaterialStateProperty.resolveWith<Color>((states) {
                 if (states.contains(MaterialState.disabled)) {
-                  return Colors.grey;
+                  return const Color.fromARGB(255, 225, 225, 225);
                 }
                 return Colors.white;
-              }), */
-              overlayColor: MaterialStateProperty.resolveWith<Color>((states) {
-                return Colors.purple;
-                /* if (states.contains(MaterialState.pressed)) {
+              }),
+              textStyle: MaterialStateProperty.resolveWith<TextStyle>(
+                  (Set<MaterialState> states) {
+                var disableState = mainTextStyle(
+                  textStyle: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                  ),
+                );
+                var currentState = mainTextStyle(
+                  textStyle: const TextStyle(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 14,
+                  ),
+                );
+                var pressedState = mainTextStyle(
+                  textStyle: const TextStyle(
+                    fontWeight: FontWeight.w900,
+                    fontSize: 16,
+                  ),
+                );
+                if (states.contains(MaterialState.pressed) ||
+                    states.contains(MaterialState.hovered) ||
+                    states.contains(MaterialState.focused)) {
+                  return pressedState;
+                } else if (states.contains(MaterialState.disabled)) {
+                  return disableState;
                 }
-                return Colors.; */
+                return currentState;
+              }),
+              foregroundColor: MaterialStateProperty.resolveWith<Color>(
+                  (Set<MaterialState> states) {
+                if (states.contains(MaterialState.pressed)) {
+                  return Colors.white;
+                } else if (states.contains(MaterialState.disabled)) {
+                  return Colors.grey;
+                }
+                return Colors.purple.shade600;
+              }),
+              overlayColor: MaterialStateProperty.resolveWith<Color>((states) {
+                if (states.contains(MaterialState.pressed)) {
+                  return Colors.purple;
+                }
+                return Colors.purple.shade200;
               }),
               /* shadowColor: MaterialStateProperty.resolveWith<Color>((states) {
-                // return Colors.blue.shade900;
+                return Colors.red;
               }), */
-              side: MaterialStateProperty.resolveWith((states) {
-                Color _borderColor;
+              side: MaterialStateProperty.resolveWith<BorderSide>((states) {
+                Color borderColor;
 
                 if (states.contains(MaterialState.disabled)) {
-                  _borderColor = Colors.pink.shade800;
+                  borderColor = Colors.grey;
                 } else if (states.contains(MaterialState.pressed)) {
-                  _borderColor = Colors.purple.shade600;
+                  borderColor = Colors.purple.shade600;
                 } else {
-                  _borderColor = Colors.purple;
+                  borderColor = Colors.purple;
                 }
 
-                return BorderSide(color: _borderColor, width: 2);
+                return BorderSide(color: borderColor, width: 2);
               }),
               shape: MaterialStateProperty.resolveWith<OutlinedBorder>((_) {
                 return RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16));
+                    borderRadius: BorderRadius.circular(50));
               }),
             ),
             onPressed: () {
@@ -89,18 +127,8 @@ class _OverPageState extends State<OverPage> {
               debugPrint("Button pressed: $dynamicButtonPressed");
               changeStyle();
             },
-            child: Text(
-              "Outlined Button",
-              style: TextStyle(
-                fontWeight: FontWeight.w800,
-                fontSize: 14,
-                decorationThickness: 4,
-                fontFamily: "Lato",
-                color: dynamicButtonPressed
-                    ? Colors.purple.shade900
-                    : Colors.purple,
-              ),
-            ),
+            // onPressed: null,
+            child: const Text("Outlined Button"),
           ),
         ],
       ),

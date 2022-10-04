@@ -4,6 +4,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:my_first_flutter_app/home_page.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +16,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(primarySwatch: Colors.teal),
+      theme: ThemeData(
+        primarySwatch: Colors.teal,
+        textTheme: GoogleFonts.sourceSansProTextTheme(),
+      ),
       title: "Informa2",
       debugShowCheckedModeBanner: false,
       home: const RootPage(),
@@ -66,4 +70,8 @@ class _RootPageState extends State<RootPage> {
           selectedIndex: currentPage,
         ));
   }
+}
+
+TextStyle mainTextStyle({required TextStyle textStyle}) {
+  return GoogleFonts.sourceSansPro(textStyle: textStyle);
 }
