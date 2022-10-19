@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:my_first_flutter_app/camera.dart';
+import 'package:my_first_flutter_app/gallery_component.dart';
 import 'package:my_first_flutter_app/main.dart';
+import 'package:my_first_flutter_app/users_list.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
 
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  List<XFile> pictures = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,7 +97,7 @@ class ProfilePage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(50));
                     }),
                   ),
-                  onPressed: CameraFunctions.openCamera,
+                  onPressed: onClickOpenCamera,
                   child: const Icon(Icons.photo_camera),
                 ),
                 OutlinedButton(
@@ -164,30 +173,34 @@ class ProfilePage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(50));
                     }),
                   ),
-                  onPressed: CameraFunctions.openGallery,
+                  onPressed: onClickOpenGallery,
                   child: const Icon(Icons.photo_library_rounded),
                 ),
               ],
             ),
-            Expanded(
-              child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: 20,
-                itemBuilder: (BuildContext context, int index) {
-                  return ListTile(
-                    title: Text("Item ${(index + 1)}"),
-                    leading: const Icon(Icons.person),
-                    trailing: const Icon(Icons.check_box_outline_blank),
-                    onTap: () {
-                      debugPrint("Item ${(index + 1)} selected");
-                    },
-                  );
-                },
-              ),
-            ),
+            // const UsersList(),
+            GalleryComponent(pictures: pictures),
           ],
         ),
       ),
     );
+  }
+
+  void onClickOpenCamera() async {
+    XFile? picture = await CameraFunctions.openCamera();
+    if (picture != null) {
+      setState(() {
+        pictures.add(picture);
+      });
+    }
+  }
+
+  void onClickOpenGallery() async {
+    XFile? picture = await CameraFunctions.openGallery();
+    if (picture != null) {
+      setState(() {
+        pictures.add(picture);
+      });
+    }
   }
 }

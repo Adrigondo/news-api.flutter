@@ -17,13 +17,21 @@ class _CameraState extends State<Camera> {
 
 class CameraFunctions {
   static final imagePicker = ImagePicker();
-  static void openCamera() async {
+  static Future<XFile?> openCamera({Function? callback}) async {
     XFile? picture = await imagePicker.pickImage(source: ImageSource.camera);
     debugPrint(picture.toString());
+    if (callback != null) {
+      callback(picture);
+    }
+    return picture;
   }
 
-  static void openGallery() async {
+  static Future<XFile?> openGallery({Function? callback}) async {
     XFile? picture = await imagePicker.pickImage(source: ImageSource.gallery);
     debugPrint(picture.toString());
+    if (callback != null) {
+      callback(picture);
+    }
+    return picture;
   }
 }
