@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:my_first_flutter_app/photo_view_screen.dart';
 
 class GalleryComponent extends StatefulWidget {
   final List<XFile> pictures;
@@ -24,9 +25,21 @@ class _GalleryComponentState extends State<GalleryComponent> {
         ),
         itemCount: widget.pictures.length,
         itemBuilder: (BuildContext context, int index) {
-          return Image.file(
-            File(widget.pictures[index].path),
-            fit: BoxFit.cover,
+          File currentImage = File(widget.pictures[index].path);
+          return InkWell(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      PhotoViewScreen(imageFile: currentImage),
+                ),
+              );
+            },
+            child: Image.file(
+              currentImage,
+              fit: BoxFit.cover,
+            ),
           );
         },
       ),
