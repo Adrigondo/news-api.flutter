@@ -47,5 +47,9 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>We need to use the camera to make some magic</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need to use the microphone to make some magic</string>
 </dict>
 </plist>
